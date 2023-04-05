@@ -2,6 +2,8 @@ package com.example.myapplication
 
 import android.content.Context
 import android.graphics.Color
+import com.directions.route.Route
+import com.directions.route.Routing
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
@@ -9,17 +11,21 @@ import com.google.android.gms.maps.model.*
 class PolyUtils(
     private val context: Context,
     private val googleMap: GoogleMap,
-    encodedPolyPoints: String
+    encodedPolyPoints: String,
+    route: List<Route>
 ) {
     private val polylineOptions: PolylineOptions
 
     init {
         val polyz: List<LatLng> = decodePolyPoints(encodedPolyPoints)
-        polylineOptions = PolylineOptions()
-            .clickable(true)
-            .addAll(polyz)
-            .color(Color.BLACK)
-            .width(5f)
+//        val polyz: List<LatLng> = listOf(LatLng(10.80704,106.64366), LatLng(10.80704,106.65370 ))
+        route[0].run {
+            polylineOptions = PolylineOptions()
+                .clickable(true)
+                .addAll(points)
+                .color(Color.BLACK)
+                .width(5f)
+        }
     }
 
     fun start() {
